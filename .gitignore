@@ -1,0 +1,10 @@
+# Simulation build files & outputs
+*.vvp
+*.vcd
+*.fst
+sim/build/
+*.log
+
+# Editor/OS temporary files
+.DS_Store
+*.swp
