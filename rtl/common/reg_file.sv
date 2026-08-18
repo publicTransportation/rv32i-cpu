@@ -22,7 +22,7 @@ assign read_data2 = (rs2 == '0) ? '0 : rf[rs2];
 
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        // rf <= '{default: '0}; // Verilator does not like this syntax
+        // rf <= '{default: '0}; // Verilator/iverilog does not like this syntax
         for (int i = 0; i < NUM_REGS; i++) begin
             rf[i] <= '0; // Reset every individual register to zeroes
         end
