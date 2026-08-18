@@ -3,8 +3,8 @@
 module imm_gen 
     import rv32i_pkg::*;
 (
-    input logic [31:0] instr,
-    output logic [31:0] signext_imm
+    input logic [XLEN-1:0] instr,
+    output logic [XLEN-1:0] signext_imm
 );
 // Decode instr[6:0] locally to avoid control unit path dependency
 // Extract 12 imm bits
