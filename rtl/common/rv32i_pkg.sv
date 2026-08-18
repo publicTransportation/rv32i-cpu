@@ -1,5 +1,6 @@
 package rv32i_pkg;
     parameter int XLEN = 32;
+    parameter int NUM_REGS = 32;
     parameter int REG_ADDR_LEN = 5;
     typedef logic [REG_ADDR_LEN-1:0] reg_addr_t;
 

@@ -15,15 +15,15 @@ module reg_file
     output logic [XLEN-1:0] read_data2
 );
 
-logic [XLEN-1:0] rf [0:XLEN-1];
+logic [NUM_REGS-1:0] rf [0:NUM_REGS-1];
 
 always_comb begin
     read_data1 = rf[rs1];
     read_data2 = rf[rs2];
 end
 
-always @() begin
-    
+always @(reg_write) begin
+    rf[rd] = write_data;
 end
 
 endmodule
