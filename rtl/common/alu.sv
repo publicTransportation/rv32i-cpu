@@ -2,10 +2,18 @@ module alu
 (
     input logic A,
     input logic B, 
+    input logic control,
     output logic zero,
-    output logic 
+    output logic result 
 );
 
-//case statement, possibly always @() combinational logic could need trigger for ALU unit
+always_comb begin
+    case (control)
+        //list cases here
+
+    endcase
+
+    zero = (result == '0); // Zero flag assertion, '0 is unbased and unsized
+end
 
 endmodule
