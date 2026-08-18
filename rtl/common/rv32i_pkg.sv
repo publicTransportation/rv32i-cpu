@@ -1,5 +1,7 @@
 package rv32i_pkg;
     parameter int XLEN = 32;
+    parameter int REG_ADDR_LEN = 5;
+    typedef logic [REG_ADDR_LEN-1:0] reg_addr_t;
 
     typedef enum logic [6:0] { // RISC-V is Little-endian
         OPCODE_LOAD =  7'b0000011, // Load
