@@ -1,5 +1,5 @@
 module reg_file 
-    import rv32i_pkg::*; // needed?
+    import rv32i_pkg::*;
 (
     input logic clk,
     input logic rst_n,
@@ -15,12 +15,10 @@ module reg_file
     output logic [XLEN-1:0] read_data2
 );
 
-logic [NUM_REGS-1:0] rf [0:NUM_REGS-1];
+logic [XLEN-1:0] rf [0:NUM_REGS-1]; // Create 32 unpacked arrays (regs) each 32 bits wide
 
-always_comb begin
-    read_data1 = rf[rs1];
-    read_data2 = rf[rs2];
-end
+assign read_data1 = (rs1 == '0) ? '0 : rf[rs1]; // Bypass x0 to always be GND ('0)
+assign read_data2 = (rs2 == '0) ? '0 : rf[rs2];
 
 always @(reg_write) begin
     rf[rd] = write_data;
