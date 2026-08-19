@@ -21,12 +21,12 @@ assign read_data1 = (rs1 == '0) ? '0 : rf[rs1]; // Bypass x0 to always be GND ('
 assign read_data2 = (rs2 == '0) ? '0 : rf[rs2];
 
 always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
+    if (!rst_n) begin // On falling edge, Reset all registers to '0
         // rf <= '{default: '0}; // Verilator/iverilog does not like this syntax
         for (int i = 0; i < NUM_REGS; i++) begin
             rf[i] <= '0; // Reset every individual register to zeroes
         end
-    end else if (reg_write && rd != '0) begin
+    end else if (reg_write && rd != '0) begin // Rising edge reg_write and bypassing x0
         rf[rd] <= write_data;
     end
 end
