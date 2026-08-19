@@ -1,4 +1,5 @@
 module control_unit
+    import rv32i_pkg::*;
 (
     input logic [6:0] opcode_e,
 
@@ -13,11 +14,14 @@ module control_unit
 );
 
 always_comb begin
-    case (opcode_e)
-        OPCODE_OP: branch = 0, mem_read = 0, mem_to_reg = 0, alu_op = {1,0}, mem_write = 0, alu_src = 0, reg_write = 1;
-
+    case (opcode_e) // Lookup Table 
+        OPCODE_OP:     {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_10_0_0_1;
+        OPCODE_LOAD:   {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_1_1_00_0_1_1;
+        OPCODE_STORE:  {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_00_1_1_0;
+        OPCODE_BRANCH: {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b1_0_0_01_0_0_0;
+        OPCODE_OP_IMM: {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_10_0_1_1;
+        default:       {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_00_0_0_0;
     endcase
 end
 
 endmodule
-
