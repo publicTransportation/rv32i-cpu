@@ -1,7 +1,7 @@
 module alu
 (
     input logic A,
-    input logic B, 
+    input logic B,
     input logic control,
     output logic zero,
     output logic result 

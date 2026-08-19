@@ -1,6 +1,6 @@
 module control_unit
 (
-    input logic [6:0] opcode,
+    input logic [6:0] opcode_e,
 
     output logic branch,
     output logic mem_read,
@@ -13,8 +13,10 @@ module control_unit
 );
 
 always_comb begin
-    assign branch = (opcode == OPCODE_BRANCH);
-    assign 
+    case (opcode_e)
+        OPCODE_OP: branch = 0, mem_read = 0, mem_to_reg = 0, alu_op = {1,0}, mem_write = 0, alu_src = 0, reg_write = 1;
+
+    endcase
 end
 
 endmodule
