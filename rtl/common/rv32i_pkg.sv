@@ -11,11 +11,18 @@ package rv32i_pkg;
         OPCODE_BRANCH = 7'b1100011,
         OPCODE_JAL = 7'b1101111, // Jump
         OPCODE_JALR = 7'b1100111, // Jump and Link Register
-        OPCODE_OP_IMM = 7'b0010011, // Operation with Immediate, I-Type
-        OPCODE_OP = 7'b0110011, // R-Type
+        OPCODE_OP_IMM = 7'b0010011, // I-type (operation with immediate)
+        OPCODE_OP = 7'b0110011, // R-type
         OPCODE_LUI = 7'b0110111, // Load upper immediate
         OPCODE_AUIPC = 7'b0010111, // Add upper immediate to PC
         OPCODE_CSR = 7'b1110011
     } opcode_e; // Enumeration type
+
+    typedef enum logic [1:0] {
+        ALU_OP_MEM    = 2'b00, // Loads / Stores (add)
+        ALU_OP_BRANCH = 2'b01, // Branches (sub/compare)
+        ALU_OP_RTYPE  = 2'b10, // R-type / I-type (decode funct3/funct7)
+        ALU_OP_OTHER  = 2'b11
+    } alu_op_e;
 
 endpackage
