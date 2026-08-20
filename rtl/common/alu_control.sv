@@ -10,7 +10,7 @@ module alu_control
     output rv32i_pkg::alu_ctrl_e alu_ctrl
 );
 
-always_comb begin 
+always_comb begin // ALUOp mapping (ALUOp = 1X, X1, 00)
     if (alu_op[1]) begin
         case ({funct7, funct3})
             10'b0000000_000: alu_ctrl = ALU_ADD;
