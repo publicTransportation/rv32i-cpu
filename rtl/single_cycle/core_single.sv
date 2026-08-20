@@ -94,8 +94,15 @@ reg_file u_rf (
 
 // --- ALU, Immediate Generator ---
 alu u_alu (
+    .a (rs1_data),
+    .b (alu_src_b),
+    .ctrl (alu_ctrl),
 
+    .zero (zero),
+    .result (alu_rslt)
 );
+
+assign alu_src_b = (alu_src) ? imm_ext : rs2_data; // alu_src MUX
 
 imm_gen u_imm_gen (
 
