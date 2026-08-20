@@ -19,7 +19,7 @@ always_comb begin // Models combinational logic
 
         OPCODE_BRANCH: signext_imm = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0}; // B-type, grounded LSB 
 
-        default: signext_imm = (XLEN)'b0;
+        default: signext_imm = 32'b0;
     endcase
 end
 

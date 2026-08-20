@@ -14,8 +14,8 @@ always_comb begin
         ALU_ADD : result = a + b;
         ALU_SUB : result = a - b;
         ALU_SLL : result = a << b[REG_ADDR_LEN-1:0];
-        ALU_SLT : result = (XLEN)'($signed(a) < $signed(b));       // Set on Less Than (Signed)
-        ALU_SLTU: result = (XLEN)'(a < b);                         // (Unsigned)
+        ALU_SLT : result = 32'($signed(a) < $signed(b));       // Set on Less Than (Signed)
+        ALU_SLTU: result = 32'(a < b);                         // (Unsigned)
         ALU_SRL : result = a >> b[REG_ADDR_LEN-1:0];
         ALU_SRA : result = $signed(a) >>> b[REG_ADDR_LEN-1:0];
         ALU_OR  : result = a | b;                               // Bitwise OR
