@@ -32,7 +32,7 @@ logic [XLEN-1:0] pc_next;
 logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
 logic zero;
-logic branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write;
+logic branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write; // Distinct dmem read & write enables
 alu_ctrl_e alu_ctrl;
 logic [XLEN-1:0] alu_src_b; // Feeds either rs2 or imm_ext (MUX output)
 logic [1:0] alu_op;
@@ -52,7 +52,7 @@ always_ff @(posedge clk or negedge rst_n) begin // Reset logic
 end
 // Interface with imem
 assign instr = imem_instr; 
-assign imem_addr = pc_next;
+assign imem_addr = pc;
 
 // --- Control Units ---
 control_unit u_ctrl (
