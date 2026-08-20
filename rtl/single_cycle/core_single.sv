@@ -36,20 +36,44 @@ logic [XLEN-1:0] alu_src_b; // Feeds either rs2 or imm_ext (MUX output)
 logic [1:0] alu_op;
 logic [XLEN-1:0] imm_ext; // Output of imm_gen
 logic [XLEN-1:0] wbdata;
-// need funct7 funct3 buses? dont think so since parsed inside alu_control.sv
-
-// MUXes can be taken care of with assign ? :
 
 // --- Program Counter Logic, Instruction Memory --- 
-assign pc_plus_4 = pc + (XLEN)'d4; // can i just go pc + 4?
+assign pc_plus_4 = pc + 32'd4;
 assign pc_target = pc + imm_ext;
-assign pc_next = (branch && zero) ? pc_target : pc_plus_4
+assign pc_next = (branch && zero) ? pc_target : pc_plus_4;
+
+always_ff @(posedge clk or negedge rst_n) begin // Reset logic
+    if (!rst_n)
+        pc <= 32'b0;
+    else
+        pc <= next_pc;
+end
+// Interface with imem
+assign instr = imem_instr; 
+assign imem_addr = pc_next;
 
 // --- Control Units ---
+control_unit u_ctrl (
 
+);
 
-// --- ALU, Immediate Generator,  ---
+alu_control u_alu_ctrl (
 
+);
+
+// --- Register File ---
+reg_file u_rf (
+
+);
+
+// --- ALU, Immediate Generator ---
+alu u_alu (
+
+);
+
+imm_gen u_imm_gen (
+
+);
 
 // --- Data Memory & Writeback MUX ---
 
