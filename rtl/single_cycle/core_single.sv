@@ -40,6 +40,17 @@ logic [XLEN-1:0] wbdata;
 
 // MUXes can be taken care of with assign ? :
 
-// 
+// --- Program Counter Logic, Instruction Memory --- 
+assign pc_plus_4 = pc + (XLEN)'d4; // can i just go pc + 4?
+assign pc_target = pc + imm_ext;
+assign pc_next = (branch && zero) ? pc_target : pc_plus_4
+
+// --- Control Units ---
+
+
+// --- ALU, Immediate Generator,  ---
+
+
+// --- Data Memory & Writeback MUX ---
 
 endmodule
