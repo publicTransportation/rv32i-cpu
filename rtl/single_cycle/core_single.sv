@@ -1,7 +1,9 @@
 `timescale 1ns / 1 ps
-import rv32i_pkg::*; // need Filepath, err: import pkg not found
+`include "../common/rv32i_pkg.sv" // Temp until Makefile so Verilator stops crying
+`include "../common/" // Temp until Makefile
 
 module core_single // Top level wrapper
+    import rv32i_pkg::*; // need Filepath, err: import pkg not found
 (
     input logic clk,
     input logic rst_n,
@@ -46,7 +48,7 @@ always_ff @(posedge clk or negedge rst_n) begin // Reset logic
     if (!rst_n)
         pc <= 32'b0;
     else
-        pc <= next_pc;
+        pc <= pc_next;
 end
 // Interface with imem
 assign instr = imem_instr; 
