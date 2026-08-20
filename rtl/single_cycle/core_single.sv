@@ -3,7 +3,7 @@
 `include "../common/" // Temp until Makefile
 
 module core_single // Top level wrapper
-    import rv32i_pkg::*; // need Filepath, err: import pkg not found
+    import rv32i_pkg::*;
 (
     input logic clk,
     input logic rst_n,
@@ -110,5 +110,11 @@ imm_gen u_imm_gen (
 );
 
 // --- Data Memory & Writeback MUX ---
+assign dmem_addr = alu_rslt;
+assign dmem_wdata = rs2_data;
+assign dmem_we = mem_write;
+assign dmem_re = mem_read;
+
+assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
 
 endmodule

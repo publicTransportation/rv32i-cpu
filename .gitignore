@@ -8,3 +8,6 @@ sim/build/
 # Editor/OS temporary files
 .DS_Store
 *.swp
+
+# .VSCodeCounter extension files
+.VSCodeCounter/
