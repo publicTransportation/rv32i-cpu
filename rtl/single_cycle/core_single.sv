@@ -29,7 +29,7 @@ logic [XLEN-1:0] pc_plus_4;
 logic [XLEN-1:0] pc_target; 
 logic [XLEN-1:0] pc_next; 
 
-logic [XLEN-1:0] rs1, rs2;
+logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
 logic zero;
 logic branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write;
@@ -56,16 +56,40 @@ assign imem_addr = pc_next;
 
 // --- Control Units ---
 control_unit u_ctrl (
+    .opcode     (instr[6:0]),
 
+    .branch     (branch),
+    .mem_read   (mem_read),
+    .mem_to_reg (mem_to_reg),
+    .mem_write  (mem_write),
+    .alu_src    (alu_src),
+    .reg_write  (reg_write),
+    .alu_op     (alu_op)
 );
 
 alu_control u_alu_ctrl (
+    .alu_op (alu_op),
+    .funct7 (instr[31:25]),
+    .funct3 (instr[14:12]),
 
+    .alu_ctrl (alu_ctrl) 
 );
 
 // --- Register File ---
 reg_file u_rf (
+    // Inputs
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .reg_write  (reg_write),
 
+    .rs1        (instr[19:15]),
+    .rs2        (instr[24:20]),
+    .rd         (instr[11:7]),
+
+    .write_data (wbdata),
+    // Outputs
+    .read_data1 (rs1_data),
+    .read_data2 (rs2_data)
 );
 
 // --- ALU, Immediate Generator ---
