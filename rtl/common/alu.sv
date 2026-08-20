@@ -1,8 +1,8 @@
 module alu
     import rv32i_pkg::*;
 (
-    input logic [XLEN-1:0] A,
-    input logic [XLEN-1:0] B,
+    input logic [XLEN-1:0] a,
+    input logic [XLEN-1:0] b,
     input rv32i_pkg::alu_ctrl_e ctrl,
 
     output logic zero,
@@ -11,17 +11,17 @@ module alu
 
 always_comb begin
     case (ctrl)
-        ALU_ADD : result = A + B;
-        ALU_SUB : result = A - B;
-        ALU_SLL : result = A << B[REG_ADDR_LEN-1:0];
-        ALU_SLT : result = 32'($signed(A) < $signed(B));       // Set on Less Than (Signed)
-        ALU_SLTU: result = 32'(A < B);                         // (Unsigned)
-        ALU_SRL : result = A >> B[REG_ADDR_LEN-1:0];
-        ALU_SRA : result = $signed(A) >>> B[REG_ADDR_LEN-1:0];
-        ALU_OR  : result = A | B;                               // Bitwise OR
-        ALU_AND : result = A & B;                               // Bitwise AND
-        ALU_XOR : result = A ^ B;                               // Bitwise
-        ALU_PASS: result = B;                                   // Pass-through (operand B)
+        ALU_ADD : result = a + b;
+        ALU_SUB : result = a - b;
+        ALU_SLL : result = a << b[REG_ADDR_LEN-1:0];
+        ALU_SLT : result = 32'($signed(a) < $signed(b));       // Set on Less Than (Signed)
+        ALU_SLTU: result = 32'(a < b);                         // (Unsigned)
+        ALU_SRL : result = a >> b[REG_ADDR_LEN-1:0];
+        ALU_SRA : result = $signed(a) >>> b[REG_ADDR_LEN-1:0];
+        ALU_OR  : result = a | b;                               // Bitwise OR
+        ALU_AND : result = a & b;                               // Bitwise AND
+        ALU_XOR : result = a ^ b;                               // Bitwise
+        ALU_PASS: result = b;                                   // Pass-through (operand b)
         default : result = '0;
     endcase
 
