@@ -16,8 +16,9 @@ module core_single // Top level wrapper
     output logic [XLEN-1:0] dmem_addr,
     output logic [XLEN-1:0] dmem_wdata,
 
-    output logic dmem_we, 
-    output logic dmem_re, // do we need separate one-bit write and read enables?
+    output logic dmem_we,
+    //output logic [3:0] dmem_wmask, // Byte-mask
+    output logic dmem_re, 
 
     input logic [XLEN-1:0] dmem_rdata
 );
@@ -112,7 +113,7 @@ imm_gen u_imm_gen (
 // --- Data Memory & Writeback MUX ---
 assign dmem_addr = alu_rslt;
 assign dmem_wdata = rs2_data;
-assign dmem_we = mem_write;
+assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 
 assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
