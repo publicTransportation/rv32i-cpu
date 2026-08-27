@@ -1,6 +1,6 @@
 `timescale 1ns / 1 ps
-`include "../common/rv32i_pkg.sv" // Temp until Makefile so Verilator stops crying
-`include "../common/" // Temp until Makefile
+`include "../common/rv32i_pkg.sv" // Temp until Makefile so Verilator stops complaining
+`include "../common/" // Temporary until Makefile
 
 module core_single // Top level wrapper
     import rv32i_pkg::*;
