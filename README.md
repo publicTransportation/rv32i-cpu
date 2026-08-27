@@ -43,4 +43,4 @@ A SystemVerilog implementation of a 32-bit RISC-V (RV32I subset) processor core 
 
 ## Author
 
-- **Andrew Liu** – [GitHub](https://github.com/publicTransportation) · [Email](mailto:aliu4517@terpmail.umd.edu)
+- **Andrew Liu** – [GitHub](https://github.com/publicTransportation) · [aliu4517@terpmail.umd.edu](mailto:aliu4517@terpmail.umd.edu)
