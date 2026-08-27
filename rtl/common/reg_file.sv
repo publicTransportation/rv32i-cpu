@@ -20,7 +20,7 @@ logic [XLEN-1:0] rf [0:NUM_REGS-1]; // Create unpacked array of 32 regs each 32 
 assign read_data1 = (rs1 == '0) ? '0 : rf[rs1]; // Bypass x0 to always be GND ('0)
 assign read_data2 = (rs2 == '0) ? '0 : rf[rs2];
 
-always_ff @(posedge clk or negedge rst_n) begin
+always_ff @(posedge clk or negedge rst_n) begin // Full Asynchronous Reset
     if (!rst_n) begin // On falling edge, Reset all registers to '0
         // rf <= '{default: '0}; // Verilator/iverilog does not like this syntax
         for (int i = 0; i < NUM_REGS; i++) begin
