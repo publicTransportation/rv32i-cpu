@@ -40,3 +40,7 @@ A SystemVerilog implementation of a 32-bit RISC-V (RV32I subset) processor core 
 - [ ] Self-Checking Testbench (WIP)
 - [ ] Run Simulation and Verification
 - [ ] 5-Stage Pipelined Processor Core
+
+## Author
+
+- **Andrew Liu** – [GitHub](https://github.com/publicTransportation) · [Email](mailto:aliu4517@terpmail.umd.edu)
