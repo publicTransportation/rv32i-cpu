@@ -81,7 +81,15 @@ always @(posedge clk) begin
         );
     end
 end
-// End of Test Detection ()
+// End of Test Detection
+always @(posedge clk) begin
+    if (rst_n) begin
+        if(imem_instr == 32'h00000000) begin // UNIMP (Unimplemented Instruction, imem hits empty memory) // (WIP) add imem_instr == 32'h0000006f (exit() inf loop) once J-type instr are supported
+            $display("\n[TB INFO] End-of-Test instruction detected at PC = 0x%08h", imem_addr);
+            @(posedge clk) check_results(); // Scoreboard verification task called after one cycle (drain DUT, one cycle for final writeback)
+        end
+    end
+end
 
 // Scoreboard
 
