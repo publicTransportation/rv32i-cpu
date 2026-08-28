@@ -43,7 +43,7 @@ A SystemVerilog implementation of a 32-bit RISC-V (RV32I subset) processor core 
 
 ## Verification & Simulation
 
-The test environment uses **Icarus Verilog (`iverilog`)** for simulation and **GTKWave** for waveform analysis. A self-checking testbench (`directed_tb.sv`) monitors retired instructions and executes an automated end-of-test scoreboard check against golden architectural state.
+The test environment uses **Icarus Verilog (`iverilog`)** for simulation and **GTKWave** for waveform analysis. A self-checking directed testbench (`directed_tb.sv`) monitors retired instructions and executes an automated end-of-test scoreboard check against golden architectural state.
 
 ### Dependencies
 - `iverilog` (v10.3+)
@@ -54,7 +54,7 @@ The test environment uses **Icarus Verilog (`iverilog`)** for simulation and **G
 
 ```bash
 # Clone the repository
-git clone [https://github.com/publicTransportation/rv32i-cpu.git](https://github.com/publicTransportation/rv32i-cpu.git)
+git clone https://github.com/publicTransportation/rv32i-cpu.git
 cd rv32i-cpu
 
 # Compile and run simulation
@@ -65,6 +65,7 @@ make wave
 
 # Clean build artifacts
 make clean
+```
 
 ## Roadmap
 - [X] Baseline RTL Single-Core Processor Core
