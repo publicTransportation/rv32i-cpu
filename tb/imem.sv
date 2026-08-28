@@ -2,7 +2,7 @@ module imem
     import rv32i_pkg::*;
 #(
     parameter MEM_DEPTH = 512,
-    parameter HEX_PATH = "../sim/program.hex" // Compiled machine code filepath  
+    parameter HEX_PATH = "test.hex" // Compiled machine code filepath  
 )(
     input logic [XLEN-1:0] imem_addr,
     output logic [ILEN-1:0] imem_instr

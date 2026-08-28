@@ -115,8 +115,18 @@ initial begin
         ref_rf[i] = 32'b0;              // Initialize Reference Register File
     end
     // --- HARDCODE register expected values ---
-
-    
+    ref_rf[1]  = 256; // x1
+    ref_rf[2]  = 15;  // x2 (and so on)
+    ref_rf[3]  = 7;
+    ref_rf[4]  = 15;
+    ref_rf[5]  = 22;
+    ref_rf[6]  = 15;
+    ref_rf[7]  = 6;
+    ref_rf[8]  = 31;
+    ref_rf[9]  = 1;
+    ref_rf[10] = 0;   // Skipped
+    ref_rf[11] = 11;
+    ref_rf[12] = 42;  // x12
 end
 // Equality checker (Only checks final state equality at EOT)
 task automatic check_results();
