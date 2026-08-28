@@ -1,5 +1,5 @@
 module imem
-    import rv32i_pkg::*; // Out of scope? // Just need Makefile
+    import rv32i_pkg::*;
 #(
     parameter MEM_DEPTH = 512,
     parameter HEX_PATH = "../sim/program.hex" // Compiled machine code filepath  

@@ -37,9 +37,12 @@ A SystemVerilog implementation of a 32-bit RISC-V (RV32I subset) processor core 
 
 ## Roadmap
 - [X] Baseline RTL Single-Core Processor Core
-- [ ] Self-Checking Testbench (WIP)
-- [ ] Run Simulation and Verification
+- [X] Self-Checking Directed Testbench (Hardcoded Golden Reference)
+- [X] Run Simulation and Verification
 - [ ] 5-Stage Pipelined Processor Core
+- [ ] Constrained-Random Testbench
+- [ ] Co-Simulation Behavioral Golden Reference
+
 
 ## Author
 

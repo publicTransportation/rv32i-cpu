@@ -114,7 +114,7 @@ initial begin
     for (int i = 0; i < 32; i++) begin
         ref_rf[i] = 32'b0;              // Initialize Reference Register File
     end
-    // Hardcode register expected values
+    // --- HARDCODE register expected values ---
 
     
 end

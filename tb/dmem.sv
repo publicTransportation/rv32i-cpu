@@ -1,5 +1,5 @@
 module dmem
-    import rv32i_pkg::*; // Will work once Makefile determines compilation order
+    import rv32i_pkg::*; 
 #(
 
 )(
