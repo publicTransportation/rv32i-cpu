@@ -1,8 +1,6 @@
 module dmem
     import rv32i_pkg::*; 
-#(
-
-)(
+(
     input logic clk,
 
     input logic [XLEN-1:0] dmem_addr,
@@ -15,7 +13,8 @@ module dmem
 );
 
 
-// Associative Array to model sparse entries
+// Associative Array to model sparse entries // iverilog does not support associative arrays
+/*
 logic [XLEN-1:0] mem [logic [XLEN-1:0]]; // 32-bit data mapped to 32-bit address keys
 logic [XLEN-1:0] aligned_addr;
 
@@ -33,6 +32,30 @@ always_ff @(posedge clk) begin
         end 
     end else begin
         dmem_rdata <= '0; // Deasserted read is '0
+    end
+end
+*/
+localparam int MEM_DEPTH = 1024;
+logic [XLEN-1:0] mem [0:MEM_DEPTH-1];    
+wire [XLEN-1:0] word_idx = dmem_addr >> 2;  // Convert byte address to word index (divide by 4)
+
+always_ff @(posedge clk) begin
+    // Synchronous Write
+    if (dmem_we) begin
+        if (word_idx < MEM_DEPTH) begin
+            mem[word_idx] <= dmem_wdata;
+        end
+    end
+
+        // Synchronous Read (replace .exists with boundary check)
+    if (dmem_re) begin
+        if (word_idx < MEM_DEPTH) begin
+            dmem_rdata <= mem[word_idx];
+        end else begin
+            dmem_rdata <= '0;
+        end
+    end else begin
+        dmem_rdata <= '0;
     end
 end
 

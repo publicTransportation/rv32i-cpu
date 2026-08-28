@@ -6,7 +6,7 @@ TB_SRCS       = $(wildcard tb/*.sv)
 VERILOG_FILES = $(PKG_SRC) $(RTL_SRCS) $(TB_SRCS)
 
 # Outputs
-SIM_DIR       = sim
+SIM_DIR       = sim_build
 SIM_OUT       = $(SIM_DIR)/sim.out
 DUMP_VCD      = $(SIM_DIR)/directed_tb.vcd
 
@@ -37,4 +37,3 @@ wave: $(DUMP_VCD)
 # Clean up
 clean:
 	rm -rf $(SIM_DIR)/*
-	

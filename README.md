@@ -29,7 +29,7 @@ A SystemVerilog implementation of a 32-bit RISC-V (RV32I subset) processor core 
 │   ├── pipelined/          # 5-stage pipelined implementation (WIP)
 │   └── single_cycle/       # Single-cycle CPU core
 │       └── core_single.sv  # Top level wrapper for DUT
-├── sim/                    # Simulation build outputs and waveforms
+├── sim_build/                    # Simulation build outputs and waveforms
 ├── tb/                     
 │   ├── directed_tb.sv      # Self-checking directed testbench
 │   ├── dmem.sv             # Dual-port data memory behavioral model
