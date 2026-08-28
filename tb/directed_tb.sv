@@ -23,7 +23,8 @@ always #5 clk = ~clk; // Toggle clock every 5 units
 initial begin
     rst_n = 1'b0; // Deassert reset at t=0
     #25; // Third clock rising edge since t=0
-    rst_n = @(negedge clk) 1'b1; // Avoid race conditions (rst_n is maximally delayed from posedge clk)
+    @(negedge clk);
+    rst_n = 1'b1; // Avoid race conditions (rst_n is maximally delayed from posedge clk)
 end
 
 // Instantiate DUT and surrounding blocks (imem, dmem)
@@ -86,7 +87,9 @@ always @(posedge clk) begin
     if (rst_n) begin
         if(imem_instr == 32'h00000000) begin // UNIMP (Unimplemented Instruction, imem hits empty memory) // (WIP) add imem_instr == 32'h0000006f (exit() inf loop) once J-type instr are supported
             $display("\n[TB INFO] End-of-Test instruction detected at PC = 0x%08h", imem_addr);
-            @(posedge clk) check_results(); // Scoreboard verification task called after one cycle (drain DUT, one cycle for final writeback)
+            @(posedge clk); 
+            #1;
+            check_results(); // Scoreboard verification task called after one cycle (drain DUT, one cycle for final writeback)
         end
     end
 end
@@ -115,7 +118,7 @@ initial begin
 
     
 end
-// Equality checker
+// Equality checker (Only checks final state equality at EOT)
 task automatic check_results();
     int mismatch_count = 0;
     $display("\n==============================================");
