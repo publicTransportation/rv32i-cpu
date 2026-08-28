@@ -92,7 +92,9 @@ always @(posedge clk) begin
 end
 
 // --- SCOREBOARD ---
-// Golden Reference (Co-simulation in lockstep)
+
+/*
+// Golden Reference // (WIP) (Co-simulation in lockstep) // (WIP) (Spike ISS DPI-C)
 logic [XLEN-1:0] ref_rf [XLEN];         // Reference Architectural State (Pure Behavioral Storage) (Pure unpacked array, NOT RTL module)
 int mismatch_count = 0;
 
@@ -101,10 +103,24 @@ initial begin
         ref_rf[i] = 32'b0;              // Initialize Reference Register File
     end
 end
+*/
 
+// Hardcoded Golden Reference
+logic [XLEN-1:0] ref_rf [XLEN];         // Reference Architectural State
+initial begin
+    for (int i = 0; i < 32; i++) begin
+        ref_rf[i] = 32'b0;              // Initialize Reference Register File
+    end
 
+    // Hardcode register expected values
+end
 // Equality checker
 task automatic check_results();
+    int mismatch_count = 0;
+
+    for (int i = 0; i < 32; i++) begin
+    end
+    
 endtask
 
 endmodule
