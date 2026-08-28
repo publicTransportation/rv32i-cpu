@@ -53,15 +53,15 @@ always_ff @(posedge clk) begin
 end
 
 always_comb begin
-    // Synchronous Read (replace .exists with boundary check)
+    // Asynchronous Read (replace .exists with boundary check)
     if (dmem_re) begin
         if (word_idx < MEM_DEPTH) begin
-            dmem_rdata <= mem[word_idx];
+            dmem_rdata = mem[word_idx];
         end else begin
-            dmem_rdata <= '0;
+            dmem_rdata = '0;
         end
     end else begin
-        dmem_rdata <= '0;
+        dmem_rdata = '0;
     end
 end
 
