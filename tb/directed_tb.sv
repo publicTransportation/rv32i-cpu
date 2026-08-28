@@ -106,21 +106,34 @@ end
 */
 
 // Hardcoded Golden Reference
-logic [XLEN-1:0] ref_rf [XLEN];         // Reference Architectural State
+logic [XLEN-1:0] ref_rf [NUM_REGS];         // Reference Architectural State
 initial begin
     for (int i = 0; i < 32; i++) begin
         ref_rf[i] = 32'b0;              // Initialize Reference Register File
     end
-
     // Hardcode register expected values
+
+    
 end
 // Equality checker
 task automatic check_results();
     int mismatch_count = 0;
-
+    $display("\n==============================================");
+    $display("           SCOREBOARD: FINAL CHECK            ");
+    $display("==============================================");
     for (int i = 0; i < 32; i++) begin
+        if (DUT.u_rf.rf[i] !== ref_rf[i]) begin
+            $display("[FAIL] Reg x%-2d = 0x%08h (Expected: 0x%08h)", i, DUT.u_rf.rf[i], ref_rf[i]);
+            mismatch_count++;
+        end 
     end
-    
+    if (mismatch_count == 0) begin
+        $display("[TEST PASSED] All 32 registers matched expected state.");
+    end else begin
+        $display("[TEST FAILED] Total mismatches: %0d", mismatch_count);
+    end
+    $display("==============================================\n");
+    $finish;
 endtask
 
 endmodule
