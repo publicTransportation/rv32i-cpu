@@ -64,8 +64,24 @@ initial begin
     $finish;
 end
 
-// Monitor
-
+// Monitor (Instruction Execution Log)
+always @(posedge clk) begin
+    if (rst_n) begin
+        // Print retired instruction information here
+        $display("[TIME %0t ns] PC: 0x%08h | Instr: 0x%08h | RegWrite: %b (x%0d <= 0x%08h) | MemWrite: %b ([0x%08h] <= 0x%08h)",
+            $time,
+            imem_addr,      // PC
+            imem_instr,
+            DUT.reg_write,
+            DUT.u_rf.rd,    // Destination register
+            DUT.wbdata,
+            dmem_we,
+            dmem_addr,      // Write addr
+            dmem_wdata      // Write data
+        );
+    end
+end
+// End of Test Detection ()
 
 // Scoreboard
 
