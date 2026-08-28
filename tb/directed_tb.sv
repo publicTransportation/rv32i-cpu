@@ -91,6 +91,20 @@ always @(posedge clk) begin
     end
 end
 
-// Scoreboard
+// --- SCOREBOARD ---
+// Golden Reference (Co-simulation in lockstep)
+logic [XLEN-1:0] ref_rf [XLEN];         // Reference Architectural State (Pure Behavioral Storage) (Pure unpacked array, NOT RTL module)
+int mismatch_count = 0;
+
+initial begin
+    for (int i = 0; i < 32; i++) begin
+        ref_rf[i] = 32'b0;              // Initialize Reference Register File
+    end
+end
+
+
+// Equality checker
+task automatic check_results();
+endtask
 
 endmodule
