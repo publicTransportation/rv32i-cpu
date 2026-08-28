@@ -35,6 +35,8 @@ always_ff @(posedge clk) begin
     end
 end
 */
+
+// Fixed-sized unpacked array
 localparam int MEM_DEPTH = 1024;
 logic [XLEN-1:0] mem [0:MEM_DEPTH-1];    
 wire [XLEN-1:0] word_idx = dmem_addr >> 2;  // Convert byte address to word index (divide by 4)
@@ -47,7 +49,11 @@ always_ff @(posedge clk) begin
         end
     end
 
-        // Synchronous Read (replace .exists with boundary check)
+        
+end
+
+always_comb begin
+    // Synchronous Read (replace .exists with boundary check)
     if (dmem_re) begin
         if (word_idx < MEM_DEPTH) begin
             dmem_rdata <= mem[word_idx];
