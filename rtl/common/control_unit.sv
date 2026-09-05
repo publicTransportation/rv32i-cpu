@@ -20,6 +20,7 @@ always_comb begin
         OPCODE_STORE:  {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_00_1_1_0; // Note mem_to_reg is a don't care
         OPCODE_BRANCH: {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b1_0_0_01_0_0_0; // Note mem_to_reg is a don't care
         OPCODE_OP_IMM: {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_10_0_1_1;
+        //OPCODE_JAL:    {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b1_0_0_10_0_1_1; // wip
         default:       {branch, mem_read, mem_to_reg, alu_op, mem_write, alu_src, reg_write} = 8'b0_0_0_00_0_0_0;
     endcase
 end
