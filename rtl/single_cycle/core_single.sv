@@ -43,7 +43,7 @@ logic [XLEN-1:0] wbdata;
 // --- Program Counter Logic, Instruction Memory --- 
 assign pc_plus_4 = pc + 32'd4;
 assign pc_target = pc + imm_ext;
-assign pc_next = (branch && zero) ? pc_target : pc_plus_4;
+assign pc_next = (branch && zero) ? pc_target : pc_plus_4; // NEED dedicated Branch Comparator
 
 always_ff @(posedge clk or negedge rst_n) begin // Reset logic
     if (!rst_n)
