@@ -32,7 +32,8 @@ logic [XLEN-1:0] pc_next;
 
 logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
-logic zero;
+logic branch_taken;
+//logic zero;
 logic branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write; // Distinct dmem read & write enables
 alu_ctrl_e alu_ctrl;
 logic [XLEN-1:0] alu_src_b; // Feeds either rs2 or imm_ext (MUX output)
@@ -40,10 +41,16 @@ logic [1:0] alu_op;
 logic [XLEN-1:0] imm_ext; // Output of imm_gen
 logic [XLEN-1:0] wbdata;
 
+// --- Branch Comparator ---
+branch_comparator u_br_comp (
+    .*,
+    .funct3 (instr[14:12])
+);
+
 // --- Program Counter Logic, Instruction Memory --- 
 assign pc_plus_4 = pc + 32'd4;
 assign pc_target = pc + imm_ext;
-assign pc_next = (branch && zero) ? pc_target : pc_plus_4; // NEED dedicated Branch Comparator
+assign pc_next = (branch && branch_taken) ? pc_target : pc_plus_4;
 
 always_ff @(posedge clk or negedge rst_n) begin // Reset logic
     if (!rst_n)
@@ -99,7 +106,7 @@ alu u_alu (
     .b      (alu_src_b),
     .ctrl   (alu_ctrl),
 
-    .zero   (zero),
+    //.zero   (zero),
     .result (alu_rslt)
 );
 

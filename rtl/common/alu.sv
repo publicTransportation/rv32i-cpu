@@ -5,7 +5,7 @@ module alu
     input logic [XLEN-1:0] b,
     input rv32i_pkg::alu_ctrl_e ctrl,
 
-    output logic zero,
+    //output logic zero,
     output logic [XLEN-1:0] result 
 );
 
@@ -25,7 +25,7 @@ always_comb begin
         default : result = '0;
     endcase
 
-    zero = (result == '0); // Zero flag assertion, '0 is unbased and unsized
+    //zero = (result == '0); // Zero flag assertion, '0 is unbased and unsized
 end
 
 endmodule
