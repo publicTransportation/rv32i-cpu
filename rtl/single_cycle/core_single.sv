@@ -38,6 +38,7 @@ pc_src_e pc_src;
 logic [XLEN-1:0] alu_src_b; // Feeds either rs2 or imm_ext (MUX output)
 logic [1:0] alu_op;
 logic [XLEN-1:0] imm_ext; // Output of imm_gen
+logic [XLEN-1:0] load_data; // Output of load_formatter
 logic [XLEN-1:0] wbdata;
 
 // --- Branch Comparator ---
@@ -109,13 +110,18 @@ imm_gen u_imm_gen (
     .signext_imm (imm_ext)
 );
 
-// --- Data Memory & Writeback MUX ---
-assign dmem_addr = alu_rslt;
+// --- Data Memory & Load Formatter & Writeback MUX ---
+load_formatter u_load_formatter (
+    .funct3      (instr[14:12]),
+    .byte_offset (alu_rslt[1:0]),
+    .dmem_rdata  (dmem_rdata),
+    .load_data   (load_data)
+);
+
+assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
 assign dmem_wdata = rs2_data;
 assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
-
-// NEED to wire dmem_rdata to the load_formatter
 
 //assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
 assign utype_data = instr[5] ? imm_ext : pc_target; // Opcode single bit diff between LUI and AUIPC, respectively
@@ -123,7 +129,7 @@ assign utype_data = instr[5] ? imm_ext : pc_target; // Opcode single bit diff be
 always_comb begin // Writeback source MUX
     case (wb_src)
         WB_SRC_ALU:    wbdata = alu_rslt;
-        //WB_SRC_MEM:  wbdata = ; // ??
+        WB_SRC_MEM:    wbdata = load_data;
         WB_SRC_PCNEXT: wbdata = pc_plus_4;
         WB_SRC_UTYPE:  wbdata = utype_data;
         default:       wbdata = alu_rslt; 
