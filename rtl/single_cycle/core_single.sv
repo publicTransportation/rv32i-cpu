@@ -56,7 +56,7 @@ always_comb begin // PC source MUX
         PC_SRC_BR_TAR: pc_next = (branch && branch_taken) ? pc_target : pc_plus_4;
         PC_SRC_JAL:    pc_next = pc_target;
         PC_SRC_JALR:   pc_next = pc_JALR;
-        default:       pc_next = pc_plus_4;
+        default:       pc_next = pc_plus_4; // Defaults to next instruction (sequentially 4 bytes later)
     endcase
 end
 
@@ -115,6 +115,17 @@ assign dmem_wdata = rs2_data;
 assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 
-assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
+//assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
+assign utype_data = instr[5] ? imm_ext : pc_target; // Opcode single bit diff between LUI and AUIPC, respectively
+
+always_comb begin // Writeback source MUX
+    case (wb_src)
+        WB_SRC_ALU:    wbdata = alu_rslt;
+        //WB_SRC_MEM: wbdata = alu_rslt; // ??
+        WB_SRC_PCNEXT: wbdata = pc_plus_4;
+        WB_SRC_UTYPE:  wbdata = utype_data;
+        default:       wbdata = alu_rslt; 
+    endcase
+end
 
 endmodule
