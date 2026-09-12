@@ -33,13 +33,11 @@ package rv32i_pkg;
         ALU_PASS = 4'b1010
     } alu_ctrl_e; // Second-level decoding after the Main Control Unit
 
-    /*
     typedef enum logic [1:0] {
         ALU_OP_MEM    = 2'b00, // Loads / Stores (add)
         ALU_OP_BRANCH = 2'b01, // Branches (sub/compare)
         ALU_OP_RTYPE  = 2'b10, // R-type / I-type (decode funct3/funct7)
         ALU_OP_OTHER  = 2'b11
     } alu_op_e;
-    */
 
 endpackage

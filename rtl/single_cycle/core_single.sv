@@ -43,7 +43,7 @@ logic [XLEN-1:0] wbdata;
 
 // --- Branch Comparator ---
 branch_comparator u_br_comp (
-    .*,
+    .*, // rs1_data, rs2_data, branch_taken
     .funct3 (instr[14:12])
 );
 

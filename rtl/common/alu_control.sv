@@ -20,7 +20,7 @@ always_comb begin // ALUOp mapping (ALUOp = 1X, X1, 00)
             default: alu_ctrl = ALU_ADD;
         endcase
     end else if (alu_op[0]) begin
-        alu_ctrl = ALU_SUB; // Branch
+        alu_ctrl = ALU_SUB; // Branch // ??? ALU no longer used for Branch, replaced by comparator
     end else begin
         alu_ctrl = ALU_ADD; // Load / Store
     end
