@@ -115,13 +115,15 @@ assign dmem_wdata = rs2_data;
 assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 
+// NEED to wire dmem_rdata to the load_formatter
+
 //assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
 assign utype_data = instr[5] ? imm_ext : pc_target; // Opcode single bit diff between LUI and AUIPC, respectively
 
 always_comb begin // Writeback source MUX
     case (wb_src)
         WB_SRC_ALU:    wbdata = alu_rslt;
-        //WB_SRC_MEM: wbdata = alu_rslt; // ??
+        //WB_SRC_MEM:  wbdata = ; // ??
         WB_SRC_PCNEXT: wbdata = pc_plus_4;
         WB_SRC_UTYPE:  wbdata = utype_data;
         default:       wbdata = alu_rslt; 

@@ -48,10 +48,10 @@ package rv32i_pkg;
     } wb_src_e;
 
     typedef enum logic [1:0] {
-        PC_SRC_NEXT    = 2'b00, // PC + 4 (Default next instruction)
+        PC_SRC_NEXT   = 2'b00, // PC + 4 (Default next instruction)
         PC_SRC_BR_TAR = 2'b01,  // Branch target
-        PC_SRC_JAL  = 2'b10,  // Same as Branch target but jump is unconditionally taken
-        PC_SRC_JALR  = 2'b11 // JALR target
+        PC_SRC_JAL    = 2'b10,  // Same as Branch target but jump is unconditionally taken
+        PC_SRC_JALR   = 2'b11 // JALR target
     } pc_src_e;
 
 endpackage
