@@ -32,7 +32,7 @@ always_comb begin
                                {1'b1,   1'b0,     WB_SRC_ALU,    ALU_OP_BRANCH, 1'b0,      1'b0,    1'b0,      PC_SRC_BR_TAR};
 
         OPCODE_JAL:            {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
-                               {1'b0,   1'b0,     WB_SRC_PCNEXT, ALU_OP_MEM,    1'b0,      1'b0,    1'b1,      PC_SRC_BR_TAR};
+                               {1'b0,   1'b0,     WB_SRC_PCNEXT, ALU_OP_MEM,    1'b0,      1'b0,    1'b1,      PC_SRC_JAL};
 
         OPCODE_JALR:           {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
                                {1'b0,   1'b0,     WB_SRC_PCNEXT, ALU_OP_MEM,    1'b0,      1'b1,    1'b1,      PC_SRC_JALR};

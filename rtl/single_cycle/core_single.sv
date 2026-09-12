@@ -24,8 +24,7 @@ module core_single // Top level wrapper
 // --- Wires and Buses ---
 logic [ILEN-1:0] instr;
 logic [XLEN-1:0] pc;
-logic [XLEN-1:0] pc_plus_4;
-logic [XLEN-1:0] pc_target; 
+logic [XLEN-1:0] pc_plus_4, pc_target, pc_JALR;
 logic [XLEN-1:0] pc_next; 
 
 logic [XLEN-1:0] rs1_data, rs2_data;
@@ -48,11 +47,20 @@ branch_comparator u_br_comp (
 );
 
 // --- Program Counter Logic, Instruction Memory --- 
-assign pc_plus_4 = pc + 32'd4;
-assign pc_target = pc + imm_ext;
-assign pc_next = (branch && branch_taken) ? pc_target : pc_plus_4;
+assign pc_plus_4 = pc + 32'd4;   // Dedicated +4 adder
+assign pc_target = pc + imm_ext; // Dedicated branch target adder
+assign pc_JALR = (rs1_data + imm_ext) & ~1; // Dedicated adder with grounding LSB
 
-always_ff @(posedge clk or negedge rst_n) begin // Reset logic
+always_comb begin // PC source MUX
+    case (pc_src)
+        PC_SRC_BR_TAR: pc_next = (branch && branch_taken) ? pc_target : pc_plus_4;
+        PC_SRC_JAL:    pc_next = pc_target;
+        PC_SRC_JALR:   pc_next = pc_JALR;
+        default:       pc_next = pc_plus_4;
+    endcase
+end
+
+always_ff @(posedge clk or negedge rst_n) begin // Clocked PC module (with reset logic)
     if (!rst_n)
         pc <= 32'b0;
     else
@@ -64,7 +72,7 @@ assign imem_addr = pc;
 
 // --- Control Units ---
 control_unit u_ctrl (
-    .opcode     (instr[6:0]),
+    .opcode     (opcode_e'(instr[6:0])), // Cast explicitly
     .* // branch, mem_read, wb_src, alu_op, mem_write, alu_src, reg_write, pc_src
 );
 
