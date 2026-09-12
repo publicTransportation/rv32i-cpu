@@ -119,8 +119,11 @@ load_formatter u_load_formatter (
     .load_data   (load_data)
 );
 
+
+
 assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
-assign dmem_wdata = rs2_data & dmem_wmask; // ???
+assign dmem_wdata = rs2_data;
+//assign dmem_wmask = dmem_wmask // Don't need this because they are named the same signal already?
 //assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 

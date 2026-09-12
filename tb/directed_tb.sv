@@ -12,7 +12,7 @@ logic [XLEN-1:0] imem_instr;
 // Data memory interface
 logic [XLEN-1:0] dmem_addr;
 logic [XLEN-1:0] dmem_wdata;
-logic            dmem_we;
+logic [3:0]      dmem_wmask;
 logic            dmem_re;
 logic [XLEN-1:0] dmem_rdata;
 
@@ -37,7 +37,7 @@ dmem u_dmem (
     .clk        (clk),
     .dmem_addr  (dmem_addr),
     .dmem_wdata (dmem_wdata),
-    .dmem_we    (dmem_we),
+    .dmem_wmask (dmem_wmask),
     .dmem_re    (dmem_re),
     .dmem_rdata (dmem_rdata) // Only output
 );
