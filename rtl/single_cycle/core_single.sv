@@ -80,8 +80,9 @@ control_unit u_ctrl (
 
 alu_control u_alu_ctrl (
     .*, // alu_op, alu_ctrl
-    .funct7     (instr[31:25]),
-    .funct3     (instr[14:12])
+    .bit30    (instr[30]),
+    .funct3   (instr[14:12]),
+    .is_rtype (instr[5])
 );
 
 // --- Register File ---
