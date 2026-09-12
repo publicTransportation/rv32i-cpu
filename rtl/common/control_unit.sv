@@ -8,7 +8,7 @@ module control_unit
     output wb_src_e wb_src,
     output alu_op_e alu_op,
     // output rv32i_pkg::alu_op_e alu_op,
-    output logic mem_write,
+    output logic dmem_wmask,
     output logic alu_src,
     output logic reg_write,
     output pc_src_e pc_src

@@ -14,8 +14,8 @@ module core_single // Top level wrapper
     output logic [XLEN-1:0] dmem_addr,
     output logic [XLEN-1:0] dmem_wdata,
 
-    output logic dmem_we,
-    //output logic [3:0] dmem_wmask, // Byte-mask
+    //output logic dmem_we,
+    output logic [3:0] dmem_wmask, // Byte-enable mask
     output logic dmem_re, 
 
     input logic [XLEN-1:0] dmem_rdata
@@ -31,7 +31,8 @@ logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
 logic branch_taken;
 //logic zero;
-logic branch, mem_read, mem_write, alu_src, reg_write; // Distinct dmem read & write enables
+logic branch, mem_read, alu_src, reg_write;
+logic [3:0] dmem_wmask;
 alu_ctrl_e alu_ctrl;
 wb_src_e wb_src;
 pc_src_e pc_src;
@@ -119,8 +120,8 @@ load_formatter u_load_formatter (
 );
 
 assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
-assign dmem_wdata = rs2_data;
-assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
+assign dmem_wdata = rs2_data & dmem_wmask; // ???
+//assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 
 //assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
