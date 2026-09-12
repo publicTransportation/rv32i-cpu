@@ -37,11 +37,9 @@ always_comb begin
         OPCODE_JALR:           {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
                                {1'b0,   1'b0,     WB_SRC_PCNEXT, ALU_OP_MEM,    1'b0,      1'b1,    1'b1,      PC_SRC_JALR};
 
-        OPCODE_LUI:            {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
-                               {1'b0,   1'b0,     WB_SRC_IMM,    ALU_OP_MEM,    1'b0,      1'b0,    1'b1,      PC_SRC_NEXT};
-
+        OPCODE_LUI,
         OPCODE_AUIPC:          {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
-                               {1'b0,   1'b0,     WB_SRC_ALU,    ALU_OP_MEM,    1'b0,      1'b0,    1'b1,      PC_SRC_NEXT};
+                               {1'b0,   1'b0,     WB_SRC_UTYPE,  ALU_OP_MEM,    1'b0,      1'b0,    1'b1,      PC_SRC_NEXT};
 
         default:               {branch, mem_read, wb_src,        alu_op,        mem_write, alu_src, reg_write, pc_src} = 
                                {1'b0,   1'b0,     WB_SRC_ALU,    ALU_OP_MEM,    1'b0,      1'b0,    1'b0,      PC_SRC_NEXT};

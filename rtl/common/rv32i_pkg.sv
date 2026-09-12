@@ -42,9 +42,9 @@ package rv32i_pkg;
 
     typedef enum logic [1:0] {
         WB_SRC_ALU    = 2'b00,
-        WB_SRC_MEM = 2'b01, 
-        WB_SRC_PCNEXT  = 2'b10, // PC + 4 (JAL and JALR save return address to rd)
-        WB_SRC_IMM  = 2'b11 // Immediate value for LUI
+        WB_SRC_MEM    = 2'b01, 
+        WB_SRC_PCNEXT = 2'b10, // PC + 4 (JAL and JALR save return address to rd)
+        WB_SRC_UTYPE  = 2'b11  // Immediate value for LUI or PC+Imm for AUIPC
     } wb_src_e;
 
     typedef enum logic [1:0] {
