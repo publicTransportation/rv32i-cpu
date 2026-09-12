@@ -52,7 +52,7 @@ core_single DUT (
     .imem_addr  (imem_addr),
     .dmem_addr  (dmem_addr),
     .dmem_wdata (dmem_wdata),
-    .dmem_we    (dmem_we),
+    .dmem_wmask (dmem_wmask),
     .dmem_re    (dmem_re)
 );
 
@@ -69,14 +69,14 @@ end
 always @(posedge clk) begin
     if (rst_n) begin
         // Print retired instruction information here
-        $display("[TIME %0t ns] PC: 0x%08h | Instr: 0x%08h | RegWrite: %b (x%0d <= 0x%08h) | MemWrite: %b ([0x%08h] <= 0x%08h)",
+        $display("[TIME %0t ns] PC: 0x%08h | Instr: 0x%08h | RegWrite: %b (x%0d <= 0x%08h) | MemWriteMask: %b ([0x%08h] <= 0x%08h)",
             $time,
             imem_addr,      // PC
             imem_instr,
             DUT.reg_write,
             DUT.u_rf.rd,    // Destination register
             DUT.wbdata,
-            dmem_we,
+            dmem_wmask,
             dmem_addr,      // Write addr
             dmem_wdata      // Write data
         );
