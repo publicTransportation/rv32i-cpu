@@ -43,15 +43,15 @@ package rv32i_pkg;
     typedef enum logic [1:0] {
         WB_SRC_ALU    = 2'b00,
         WB_SRC_MEM = 2'b01, 
-        //WB_SRC_  = 2'b10,
+        WB_SRC_PCNEXT  = 2'b10, // PC + 4 (JAL and JALR save return address to rd)
         WB_SRC_IMM  = 2'b11 // Immediate value for LUI
     } wb_src_e;
 
     typedef enum logic [1:0] {
         PC_SRC_NEXT    = 2'b00, // PC + 4 (Default next instruction)
-        PC_SRC_BR_TAR = 2'b01,  // Branch target
-        //PC_SRC_JAL  = 2'b10,     // JAL target ?
-        PC_SRC_JALR  = 2'b11 // JALR target?
+        PC_SRC_BR_TAR = 2'b01,  // Branch target and JAL target are same (unconditional)
+        //PC_SRC_JAL  = 2'b10,  // (no dedicated enum JAL target)
+        PC_SRC_JALR  = 2'b11 // JALR target
     } pc_src_e;
 
 endpackage
