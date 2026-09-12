@@ -12,7 +12,7 @@ logic [15:0] load_hw;
 
 always_comb begin
     load_byte = 8'(dmem_rdata >> (byte_offset * 8)); // Explicit size cast (8 bits), Shift trick to slice
-    load_hw = 16'(dmem_rdata >> (byte_offset * 8));
+    load_hw = 16'(dmem_rdata >> (byte_offset[1] * 16)); // Disallow byte shifts for hw slicing
     case (funct3)
         3'b000: load_data = {{24{load_byte[7]}}, load_byte}; //LB
         3'b001: load_data = {{16{load_hw[15]}}, load_hw};    //LH 
