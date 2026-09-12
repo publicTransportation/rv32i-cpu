@@ -1,6 +1,4 @@
 `timescale 1ns / 1 ps // Compilation order matters with conflicting timescale directives
-//`include "../common/rv32i_pkg.sv" // Temp until Makefile
-//`include "../common/"
 
 module core_single // Top level wrapper
     import rv32i_pkg::*;
@@ -34,8 +32,10 @@ logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
 logic branch_taken;
 //logic zero;
-logic branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write; // Distinct dmem read & write enables
+logic branch, mem_read, mem_write, alu_src, reg_write; // Distinct dmem read & write enables
 alu_ctrl_e alu_ctrl;
+wb_src_e wb_src;
+pc_src_e pc_src;
 logic [XLEN-1:0] alu_src_b; // Feeds either rs2 or imm_ext (MUX output)
 logic [1:0] alu_op;
 logic [XLEN-1:0] imm_ext; // Output of imm_gen
@@ -65,7 +65,7 @@ assign imem_addr = pc;
 // --- Control Units ---
 control_unit u_ctrl (
     .opcode     (instr[6:0]),
-    .* // branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_op
+    .* // branch, mem_read, wb_src, alu_op, mem_write, alu_src, reg_write, pc_src
 );
 
 alu_control u_alu_ctrl (
