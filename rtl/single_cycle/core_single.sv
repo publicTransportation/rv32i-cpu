@@ -32,7 +32,6 @@ logic [XLEN-1:0] alu_rslt;
 logic branch_taken;
 //logic zero;
 logic branch, mem_read, mem_write, alu_src, reg_write;
-logic [3:0] dmem_wmask;
 alu_ctrl_e alu_ctrl;
 wb_src_e wb_src;
 pc_src_e pc_src;
@@ -41,6 +40,7 @@ logic [1:0] alu_op;
 logic [XLEN-1:0] imm_ext; // Output of imm_gen
 logic [XLEN-1:0] load_data; // Output of load_formatter
 logic [XLEN-1:0] wbdata;
+logic [XLEN-1:0] utype_data;
 
 // --- Branch Comparator ---
 branch_comparator u_br_comp (
@@ -81,7 +81,7 @@ control_unit u_ctrl (
 alu_control u_alu_ctrl (
     .*, // alu_op, alu_ctrl
     .funct7     (instr[31:25]),
-    .funct3     (instr[14:12]),
+    .funct3     (instr[14:12])
 );
 
 // --- Register File ---
@@ -120,11 +120,12 @@ load_formatter u_load_formatter (
 );
 
 store_gen u_store_gen (
-    .* // funct3, byte_offset, rs2_data, dmem_wdata, dmem_wmask
+    .*, // funct3, rs2_data, dmem_wdata, dmem_wmask
+    .byte_offset (alu_rslt[1:0])
 );
 
 assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
-assign dmem_wdata = rs2_data;
+//assign dmem_wdata = rs2_data;
 //assign dmem_wmask = dmem_wmask // Don't need this because they are named the same signal already?
 //assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
