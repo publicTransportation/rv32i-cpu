@@ -120,17 +120,14 @@ load_formatter u_load_formatter (
 );
 
 store_gen u_store_gen (
-    .*, // funct3, rs2_data, dmem_wdata, dmem_wmask
+    .*, // rs2_data, dmem_wdata, dmem_wmask
+    .funct3      (instr[14:12]),
     .byte_offset (alu_rslt[1:0])
 );
 
 assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
-//assign dmem_wdata = rs2_data;
-//assign dmem_wmask = dmem_wmask // Don't need this because they are named the same signal already?
-//assign dmem_we = mem_write; // CHANGE IF BYTE-MASK ENABLED, Single bit insufficient
 assign dmem_re = mem_read;
 
-//assign wbdata = (mem_to_reg) ? dmem_rdata : alu_rslt;
 assign utype_data = instr[5] ? imm_ext : pc_target; // Opcode single bit diff between LUI and AUIPC, respectively
 
 always_comb begin // Writeback source MUX
