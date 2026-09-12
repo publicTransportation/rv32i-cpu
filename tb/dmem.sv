@@ -6,7 +6,7 @@ module dmem
     input logic [XLEN-1:0] dmem_addr,
     input logic [XLEN-1:0] dmem_wdata,
 
-    input logic dmem_we, 
+    input logic [3:0] dmem_wmask,
     input logic dmem_re,
 
     output logic [XLEN-1:0] dmem_rdata

@@ -31,7 +31,7 @@ logic [XLEN-1:0] rs1_data, rs2_data;
 logic [XLEN-1:0] alu_rslt;
 logic branch_taken;
 //logic zero;
-logic branch, mem_read, alu_src, reg_write;
+logic branch, mem_read, mem_write, alu_src, reg_write;
 logic [3:0] dmem_wmask;
 alu_ctrl_e alu_ctrl;
 wb_src_e wb_src;
@@ -111,7 +111,7 @@ imm_gen u_imm_gen (
     .signext_imm (imm_ext)
 );
 
-// --- Data Memory & Load Formatter & Writeback MUX ---
+// --- Data Memory & Writeback MUX ---
 load_formatter u_load_formatter (
     .funct3      (instr[14:12]),
     .byte_offset (alu_rslt[1:0]),
@@ -119,7 +119,9 @@ load_formatter u_load_formatter (
     .load_data   (load_data)
 );
 
-
+store_gen u_store_gen (
+    .* // funct3, byte_offset, rs2_data, dmem_wdata, dmem_wmask
+);
 
 assign dmem_addr = {alu_rslt[XLEN-1:2], 2'b00}; // Word alignment
 assign dmem_wdata = rs2_data;
