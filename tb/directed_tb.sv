@@ -3,6 +3,8 @@
 module directed_tb;
     import rv32i_pkg::*;
 
+string vcd_file; // Waveform dump per EACH simulation
+
 // --- SIGNAL DECLARATIONS ---
 logic            clk;
 logic            rst_n;
@@ -58,7 +60,11 @@ core_single DUT (
 
 // Waveform dumping
 initial begin
-    $dumpfile("directed_tb.vcd");
+    if (!$value$plusargs("VCD=%s", vcd_file)) begin
+        $display("FATAL: +VCD plusarg missing!");
+        $finish;
+    end
+    $dumpfile(vcd_file);
     $dumpvars(0, directed_tb); // Recursively dump hierarchical levels (top level is directed_tb)
     #50000; // Timeout watchdog
     $display("[TB ERROR] Simulation timeout reached!");
@@ -129,6 +135,7 @@ initial begin
     ref_rf[12] = 42;  // x12
 end
 // Equality checker (Only checks final state equality at EOT)
+// NOTE: test1.hex and test2.hex SHARE the same Golden reference results!
 task automatic check_results();
     int mismatch_count = 0;
     $display("\n==============================================");
