@@ -66,7 +66,7 @@ initial begin
     end
     $dumpfile(vcd_file);
     $dumpvars(0, directed_tb); // Recursively dump hierarchical levels (top level is directed_tb)
-    #50000; // Timeout watchdog
+    #10000; // Timeout watchdog
     $display("[TB ERROR] Simulation timeout reached!");
     $finish;
 end
@@ -91,7 +91,8 @@ end
 // End of Test Detection
 always @(posedge clk) begin
     if (rst_n) begin
-        if(imem_instr == 32'h00000000) begin // UNIMP (Unimplemented Instruction, imem hits empty memory) // (WIP) add imem_instr == 32'h0000006f (exit() inf loop) once J-type instr are supported
+        // imem_instr == 32'h0000006f (exit() inf loop) (J-type instr are supported)
+        if(imem_instr == 32'h0000006f) begin
             $display("\n[TB INFO] End-of-Test instruction detected at PC = 0x%08h", imem_addr);
             @(posedge clk); 
             #1;

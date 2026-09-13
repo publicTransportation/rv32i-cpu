@@ -24,4 +24,4 @@ target:
     addi x11, x9, 10
     add  x12, x11, x8
 
-    unimp
+    jal x0, 0
