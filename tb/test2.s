@@ -1,6 +1,6 @@
 .globl _start
-.text
-_start:
+.text # load into execution memory
+_start: 
     # ----------------------------------------------------
     # Phase 1: Set up x1 (256) & scratchpad values
     # ----------------------------------------------------
@@ -95,37 +95,30 @@ _start:
     # 29. beq
     beq   x2, x4, t_beq          # 15 == 15 (taken)
     addi  x10, x0, 99            # skipped
-t_beq:
 
     # 30. bne
     bne   x2, x3, t_bne          # 15 != 7 (taken)
     addi  x10, x0, 99            # skipped
-t_bne:
 
     # 31. blt
     blt   x27, x2, t_blt         # -9 < 15 signed (taken)
     addi  x10, x0, 99            # skipped
-t_blt:
 
     # 32. bge
     bge   x2, x27, t_bge         # 15 >= -9 signed (taken)
     addi  x10, x0, 99            # skipped
-t_bge:
 
     # 33. bltu
     bltu  x2, x27, t_bltu        # 15 < 0xFFFFFFF7 unsigned (taken)
     addi  x10, x0, 99            # skipped
-t_bltu:
 
     # 34. bgeu
     bgeu  x27, x2, t_bgeu        # 0xFFFFFFF7 >= 15 unsigned (taken)
     addi  x10, x0, 99            # skipped
-t_bgeu:
 
     # 35. jal
     jal   x29, t_jal             # x29 gets return address (PC + 4)
     addi  x10, x0, 99            # skipped
-t_jal:
 
     # 36. auipc
     auipc x30, 0                 # x30 = PC
@@ -134,7 +127,6 @@ t_jal:
     # 37. jalr
     jalr  x31, x30, 0            # jump to t_jalr, x31 gets PC + 4
     addi  x10, x0, 99            # skipped
-t_jalr:
 
     # ----------------------------------------------------
     # Phase 7: Scratchpad Cleanup (Reset x13..x31 back to 0)
