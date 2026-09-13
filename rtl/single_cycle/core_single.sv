@@ -121,7 +121,7 @@ load_formatter u_load_formatter (
 );
 
 store_gen u_store_gen (
-    .*, // rs2_data, dmem_wdata, dmem_wmask
+    .*, // rs2_data, dmem_wdata, dmem_wmask, mem_write
     .funct3      (instr[14:12]),
     .byte_offset (alu_rslt[1:0])
 );

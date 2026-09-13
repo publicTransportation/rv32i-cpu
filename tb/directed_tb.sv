@@ -58,6 +58,16 @@ core_single DUT (
     .dmem_re    (dmem_re)
 );
 
+bind core_single cpu_sva u_cpu_sva ( // Bind SVA module within internal DUT scope
+    .clk        (clk),
+    .rst_n      (rst_n),
+    .imem_addr  (imem_addr),
+    .x0_val     (u_rf.rf[0]),
+    .dmem_we    (mem_write),
+    .dmem_re    (dmem_re),
+    .dmem_wmask (dmem_wmask)
+);
+
 // Waveform dumping
 initial begin
     if (!$value$plusargs("VCD=%s", vcd_file)) begin
