@@ -1,3 +1,4 @@
+/*
 module cpu_sva
     import rv32i_pkg::*;
 (
@@ -51,3 +52,4 @@ a_pc_sequential_increment: assert property (pc_sequential_increment)
     else $error("[SVA FAIL] PC failed to increment by 4 bytes although branch was not taken. | PC: 0x%08h | Prev_PC: 0x%08h", imem_addr, $past(imem_addr));
 
 endmodule
+*/

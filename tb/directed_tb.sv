@@ -57,7 +57,7 @@ core_single DUT (
     .dmem_wmask (dmem_wmask),
     .dmem_re    (dmem_re)
 );
-
+/* // Turns out iverilog and Verilator do not support SVA
 bind core_single cpu_sva u_cpu_sva ( // Bind SVA module within internal DUT scope
     .clk          (clk),
     .rst_n        (rst_n),
@@ -70,6 +70,7 @@ bind core_single cpu_sva u_cpu_sva ( // Bind SVA module within internal DUT scop
     .branch       (branch),
     .branch_taken (branch_taken)
 );
+*/ 
 
 // Waveform dumping
 initial begin
