@@ -149,9 +149,9 @@ task automatic check_results();
         end 
     end
     if (mismatch_count == 0) begin
-        $display("[TEST PASSED] All 32 registers matched expected state.");
+        $display("[TEST PASSED] All 32 registers matched expected state. (%s)", vcd_file);
     end else begin
-        $display("[TEST FAILED] Total mismatches: %0d", mismatch_count);
+        $display("[TEST FAILED] Total mismatches: %0d (%s)", mismatch_count, vcd_file);
     end
     $display("==============================================\n");
     $finish;
