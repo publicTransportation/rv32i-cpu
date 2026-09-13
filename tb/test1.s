@@ -1,4 +1,4 @@
-# tb/test.s
+# tb/test1.s
 
     # Initialization
     addi x1, x0, 256
